@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/pillllo/mentee-match#readme",
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0"
+    // "cz-conventional-changelog": "^3.3.0"
   }
 }
