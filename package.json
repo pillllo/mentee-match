@@ -16,10 +16,12 @@
     "url": "https://github.com/pillllo/mentee-match/issues"
   },
   "homepage": "https://github.com/pillllo/mentee-match#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0"
-  },
-  "dependencies": {
-    "commitizen": "^4.2.4"
   }
 }
