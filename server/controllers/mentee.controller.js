@@ -1,12 +1,13 @@
+const mentees = require('../models/mock');
+
 async function getAll(req, res) {
   try {
-    const mentees =
+    res.status(200);
+    res.send(mentees);
   } catch {
     res.status(500);
     res.send('Could not get the list of mentees.');
   }
-
-  console.log('🎯');
 }
 
 module.exports = { getAll };
