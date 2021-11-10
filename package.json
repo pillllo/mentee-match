@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pillllo/mentee-match/issues"
   },
-  "homepage": "https://github.com/pillllo/mentee-match#readme"
+  "homepage": "https://github.com/pillllo/mentee-match#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  }
 }
