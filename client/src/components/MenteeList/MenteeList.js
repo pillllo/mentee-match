@@ -1,4 +1,4 @@
-import MenteeListItem from '../MenteeListItem/MenteeListItem';
+import { Link } from 'react-router-dom';
 
 function MenteeList({ mentees }) {
   return (
@@ -39,7 +39,6 @@ function MenteeList({ mentees }) {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {/* TODO: export table row to a separate component */}
                 {/* TODO: choose which fields to show & how, then adjust table headers */}
                 {mentees.map((mentee) => (
                   <tr key={mentee._id}>
@@ -65,12 +64,12 @@ function MenteeList({ mentees }) {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="/mentee"
+                      <Link
+                        to={`/mentee/${mentee._id}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         View more
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 ))}

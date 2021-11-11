@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'; //BellIcon
 
 const navigationTabs = [
   { name: 'Home', href: '/', current: true },
-  { name: 'My mentees', href: '/mymentees', current: false },
+  // { name: 'My mentees', href: '/mymentees', current: false },
 ];
 
 // Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars
@@ -14,6 +14,7 @@ function classNames(...classes) {
 
 function Navbar() {
   return (
+    // TODO: make navabr fixed at top of page
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
