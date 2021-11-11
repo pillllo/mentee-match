@@ -6,46 +6,56 @@ import MenteeList from './components/MenteeList/MenteeList';
 import MenteeDetailView from './components/MenteeDetailView/MenteeDetailView';
 
 function App() {
-  const [mentees, setMentees] = useState([]);
+  const [allMentees, setAllMentees] = useState([]);
+  const [remainingMentees, setRemainingMentees] = useState([]);
+  const [numberChosenMentees, setNumberChosenMentees] = useState(0);
 
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
-      setMentees(menteeList);
+      setAllMentees(menteeList);
+      const menteesNotChosen = menteeList.filter(
+        (mentee) => mentee.chosen === false
+      );
+      setRemainingMentees(menteesNotChosen);
     });
   }, []);
 
-  // function updateMentee(id, mentee) {
-  //   ApiService.putMenteeChoice(id, mentee).then((menteeList) => {
-  //     const index = menteeList.indexOf(mentee);
-  //     setMentees(
-  //       mentees
-  //         .slice(0, index)
-  //         .concat(mentee)
-  //         .concat(mentees.slice(index + 1))
-  //     );
-  //   });
-  // }
+  useEffect(() => {
+    const updatedNumber = allMentees.filter(
+      (mentee) => mentee.chosenByMe
+    ).length;
+    setNumberChosenMentees(updatedNumber);
+  }, [allMentees]);
 
   function updateMentee(id, mentee) {
+    mentee.chosen = !mentee.chosen;
+    mentee.chosenByMe = !mentee.chosenByMe;
     ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
-      setMentees((menteeList) => {
+      setAllMentees((menteeList) => {
         const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
         menteeToUpdate.chosen = updatedMentee.chosen;
         menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
         return [...menteeList];
       });
     });
+    console.log('🎯 updateMentee function: click');
   }
+
+  console.log('🎯 new number chosen mentees', numberChosenMentees);
 
   return (
     <div className="">
       <Navbar className="" />
       <Routes>
-        <Route path="/" element={<MenteeList mentees={mentees} />} />
+        <Route path="/" element={<MenteeList mentees={allMentees} />} />
         <Route
           path="/mentee/:id"
           element={
-            <MenteeDetailView mentees={mentees} updateMentee={updateMentee} />
+            <MenteeDetailView
+              mentees={allMentees}
+              updateMentee={updateMentee}
+              numberChosenMentees={numberChosenMentees}
+            />
           }
         />
       </Routes>

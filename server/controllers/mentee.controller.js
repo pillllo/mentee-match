@@ -12,10 +12,13 @@ async function getAll(req, res) {
 
 async function updateChoice(req, res) {
   try {
-    const menteeToUpdate = req.body;
-    console.log(menteeToUpdate);
+    const { _id, chosen, chosenByMe } = req.body;
+    const index = mentees.findIndex((mentee) => mentee._id === _id);
+    mentees[index].chosen = chosen;
+    mentees[index].chosenByMe = chosenByMe;
+    const updatedMentee = mentees[index];
     res.status(201);
-    res.send(mentee);
+    res.send(updatedMentee);
   } catch {
     res.status(500);
     res.send('Could not update mentee choice.');

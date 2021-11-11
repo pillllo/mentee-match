@@ -1,3 +1,5 @@
+// main component imported from Tailwind UI: https://tailwindui.com/components/application-ui/data-display/description-lists
+
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
@@ -7,12 +9,13 @@ import {
   CheckIcon,
 } from '@heroicons/react/outline';
 
-function MenteeDetailView({ mentees, updateMentee }) {
+function MenteeDetailView({ mentees, updateMentee, numberChosenMentees }) {
   let params = useParams();
   const mentee = mentees.find((mentee) => mentee._id === parseInt(params.id));
 
   return (
     // TODO: style the detail view card according to data (e.g. 2 columns at the top)
+    // Only render detail view if the mentees hae been loaded from the backend
     mentees.length ? (
       <div className="mx-24 my-10">
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -43,11 +46,16 @@ function MenteeDetailView({ mentees, updateMentee }) {
               </div>
               {/* Button choose */}
               <div className="ml-3 inline-flex rounded-md shadow">
+                {/* If mentee has choosen by anyone, disallow selecting the button */}
                 <button
-                  className="inline-flex items-center justify-center px-4 py-2 border
+                  // TODO: disable button and show in different color when mentee has been chosen already
+                  className={`inline-flex items-center justify-center px-4 py-2 border
                   border-transparent text-base font-medium rounded-md text-white
-                  bg-indigo-600 hover:bg-indigo-700"
+                  bg-indigo-600 hover:bg-indigo-700 ${
+                    !mentee.chosen ? 'opacity-50' : ''
+                  }`}
                   aria-label="choose mentee"
+                  onClick={() => updateMentee(mentee._id, mentee)}
                 >
                   <CheckIcon className="h-4 w-auto" aria-hidden="true" />
                 </button>

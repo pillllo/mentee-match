@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function MenteeList({ mentees }) {
   return (
-    <div className="m-6">
+    <div className="md:m-6">
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
