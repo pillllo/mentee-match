@@ -14,8 +14,8 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <Navbar />
+    <div className="">
+      <Navbar className="" />
       <MenteeList mentees={mentees} />
     </div>
   );
