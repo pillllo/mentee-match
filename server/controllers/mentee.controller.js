@@ -10,6 +10,19 @@ async function getAll(req, res) {
   }
 }
 
+async function updateChoice(req, res) {
+  try {
+    const menteeToUpdate = req.body;
+    console.log(menteeToUpdate);
+    res.status(201);
+    res.send(mentee);
+  } catch {
+    res.status(500);
+    res.send('Could not update mentee choice.');
+  }
+}
+
+// not used
 async function getById(req, res) {
   try {
     const { id } = req.params;
@@ -24,4 +37,4 @@ async function getById(req, res) {
   }
 }
 
-module.exports = { getAll, getById };
+module.exports = { getAll, updateChoice, getById };

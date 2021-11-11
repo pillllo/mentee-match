@@ -14,7 +14,28 @@ function App() {
     });
   }, []);
 
-  console.log('App:', mentees);
+  // function updateMentee(id, mentee) {
+  //   ApiService.putMenteeChoice(id, mentee).then((menteeList) => {
+  //     const index = menteeList.indexOf(mentee);
+  //     setMentees(
+  //       mentees
+  //         .slice(0, index)
+  //         .concat(mentee)
+  //         .concat(mentees.slice(index + 1))
+  //     );
+  //   });
+  // }
+
+  function updateMentee(id, mentee) {
+    ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
+      setMentees((menteeList) => {
+        const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
+        menteeToUpdate.chosen = updatedMentee.chosen;
+        menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
+        return [...menteeList];
+      });
+    });
+  }
 
   return (
     <div className="">
@@ -23,12 +44,10 @@ function App() {
         <Route path="/" element={<MenteeList mentees={mentees} />} />
         <Route
           path="/mentee/:id"
-          element={<MenteeDetailView mentees={mentees} />}
+          element={
+            <MenteeDetailView mentees={mentees} updateMentee={updateMentee} />
+          }
         />
-        {/* <Route
-          path="/mentee"
-          element={<MenteeDetailView mentees={mentees} />}
-        /> */}
       </Routes>
     </div>
   );

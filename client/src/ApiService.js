@@ -8,11 +8,22 @@ function fetchRequest(path, options) {
 }
 
 function getMentees() {
-  return fetchRequest('/home');
+  return fetchRequest('/');
+}
+
+function putMenteeChoice(id, mentee) {
+  return fetchRequest(`/mentee/:${id}'`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(mentee),
+  });
 }
 
 const ApiService = {
   getMentees,
+  putMenteeChoice,
 };
 
 export default ApiService;
