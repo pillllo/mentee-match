@@ -4,29 +4,37 @@ import ApiService from './ApiService';
 import Navbar from './components/Navbar';
 import MenteeList from './components/MenteeList';
 import MenteeDetailView from './components/MenteeDetailView';
+import DropDown from './components/Functional/DropDown';
 
 function App() {
   const [allMentees, setAllMentees] = useState([]);
   // FIXME: fix display of chosen mentees -> update when mentee is marked as chosen
+  const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
+  const [filteredMentees, setFilteredMentees] = useState([]);
   const [remainingMentees, setRemainingMentees] = useState([]);
-  const [amountMenteesChosen, setNumberChosenMentees] = useState(0);
 
   //
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
       setAllMentees(menteeList);
-      const menteesNotChosen = menteeList.filter(
-        (mentee) => mentee.chosen === false
-      );
-      setRemainingMentees(menteesNotChosen);
+      // const menteesNotChosen = menteeList.filter(
+      //   (mentee) => mentee.chosen === false
+      // );
+      // setRemainingMentees(menteesNotChosen);
     });
   }, []);
 
   useEffect(() => {
+    // Update the count of mentees selected by me
     const updatedNumber = allMentees.filter(
       (mentee) => mentee.chosenByMe
     ).length;
-    setNumberChosenMentees(updatedNumber);
+    setCountMenteesChosenByMe(updatedNumber);
+    // Update the list of mentees that remain for choosing
+    const menteesNotChosen = allMentees.filter(
+      (mentee) => mentee.chosen === false
+    );
+    setRemainingMentees(menteesNotChosen);
   }, [allMentees]);
 
   function updateMentee(id, mentee) {
@@ -42,9 +50,7 @@ function App() {
     });
   }
 
-  // console.log('🎯 Mentees', allMentees[0].chosen);
-  // console.log('🎯 Mentees', allMentees[6].chosen);
-  console.log('🎯 new number chosen mentees', amountMenteesChosen);
+  console.log('🎯 Remaining mentees', remainingMentees);
 
   return (
     <div className="">
@@ -56,7 +62,7 @@ function App() {
           element={
             <MenteeDetailView
               mentees={allMentees}
-              amountMenteesChosen={amountMenteesChosen}
+              countMenteesChosenByMe={countMenteesChosenByMe}
               updateMentee={updateMentee}
             />
           }

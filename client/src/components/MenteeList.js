@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
+import { ArrowLeftIcon } from '@heroicons/react/outline';
+import DropDown from './Functional/DropDown';
 
 function MenteeList({ mentees }) {
   return (
     <div className="md:m-6">
+      {/* Button previous */}
+      <div className="inline-flex rounded-md shadow">
+        <Link
+          to={`/`}
+          className="inline-flex items-center justify-center p-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+        >
+          <ArrowLeftIcon className="h-4 w-auto" aria-hidden="true" />
+        </Link>
+      </div>
+      <DropDown />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

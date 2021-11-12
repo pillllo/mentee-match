@@ -21,9 +21,15 @@ function putMenteeChoice(id, mentee) {
   });
 }
 
+// Input criteria (key-value pair) by which to filter
+function getFilteredMentees(careerPath) {
+  return fetchRequest(`/?careerPath=${careerPath}`);
+}
+
 const ApiService = {
   getMentees,
   putMenteeChoice,
+  getFilteredMentees,
 };
 
 export default ApiService;

@@ -10,6 +10,20 @@ async function getAll(req, res) {
   }
 }
 
+async function filterMentees(req, res) {
+  try {
+    const { careerPath } = req.query;
+    const filteredMentees = mentees.filter((mentee) => {
+      return mentee.careerPath.toLowerCase() === careerPath.toLowerCase();
+    });
+    res.status(200);
+    res.send(filteredMentees);
+  } catch {
+    res.status(500);
+    res.send('Could not get the list of mentees.');
+  }
+}
+
 async function updateChoice(req, res) {
   try {
     const { _id, chosen, chosenByMe } = req.body;
@@ -25,19 +39,4 @@ async function updateChoice(req, res) {
   }
 }
 
-// not used
-async function getById(req, res) {
-  try {
-    const { id } = req.params;
-    const mentee = mentees.find(
-      (mentee) => mentee._id === parseInt(req.params.id)
-    );
-    res.status(200);
-    res.send(mentee);
-  } catch {
-    res.status(500);
-    res.send('Could not get the list of mentees.');
-  }
-}
-
-module.exports = { getAll, updateChoice, getById };
+module.exports = { getAll, filterMentees, updateChoice };

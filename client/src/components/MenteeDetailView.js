@@ -14,7 +14,7 @@ import ModalError from './Modals/ModalError';
 function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
   const [showModal, setShowModal] = useState(false);
 
-  // Find Mentee for which the detail view should be shown, based on the id in the URL params
+  // Find mentee for which the detail view should be shown, based on the id in the URL params
   const params = useParams();
   const mentee = mentees.find((mentee) => mentee._id === parseInt(params.id));
 
@@ -25,6 +25,7 @@ function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
   // Content type to be passed to the Modal depending on what modal it is
   const submitChoice = {
     title: 'Submit your choice',
+    // TODO: personalise the message to the person's name
     text: `Do you want to choose this person as your mentee?`,
     buttonText: 'Choose',
     icon: 'CheckCircleIcon',
