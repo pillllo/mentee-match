@@ -1,5 +1,5 @@
 // main component imported from Tailwind UI: https://tailwindui.com/components/application-ui/data-display/description-lists
-
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
@@ -8,14 +8,38 @@ import {
   XIcon,
   CheckIcon,
 } from '@heroicons/react/outline';
+import ModalConfirm from './Modals/ModalConfirm';
+import ModalError from './Modals/ModalError';
 
-function MenteeDetailView({ mentees, updateMentee, numberChosenMentees }) {
-  let params = useParams();
+function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
+  const [showModal, setShowModal] = useState(false);
+
+  // Find Mentee for which the detail view should be shown, based on the id in the URL params
+  const params = useParams();
   const mentee = mentees.find((mentee) => mentee._id === parseInt(params.id));
+
+  function toggleModal() {
+    setShowModal(!showModal);
+  }
+
+  // Content type to be passed to the Modal depending on what modal it is
+  const submitChoice = {
+    title: 'Submit your choice',
+    text: `Do you want to choose this person as your mentee?`,
+    buttonText: 'Choose',
+    icon: 'CheckCircleIcon',
+  };
+
+  const noMoreChoice = {
+    title: 'No choice left',
+    text: `You have already chosen 2 mentees.`,
+    buttonText: 'Close',
+    icon: 'ExclamationIcon',
+  };
 
   return (
     // TODO: style the detail view card according to data (e.g. 2 columns at the top)
-    // Only render detail view if the mentees hae been loaded from the backend
+    // Only render detail view if the mentees array has been loaded from the backend, else show loading spinner
     mentees.length ? (
       <div className="mx-24 my-10">
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -46,16 +70,17 @@ function MenteeDetailView({ mentees, updateMentee, numberChosenMentees }) {
               </div>
               {/* Button choose */}
               <div className="ml-3 inline-flex rounded-md shadow">
-                {/* If mentee has choosen by anyone, disallow selecting the button */}
+                {/* If mentee has choosen by anyone, show button in different color and disallow selecting the button */}
                 <button
-                  // TODO: disable button and show in different color when mentee has been chosen already
+                  // TODO: disable button when mentee has been chosen already
                   className={`inline-flex items-center justify-center px-4 py-2 border
                   border-transparent text-base font-medium rounded-md text-white
                   bg-indigo-600 hover:bg-indigo-700 ${
-                    !mentee.chosen ? 'opacity-50' : ''
+                    mentee.chosen ? 'opacity-50' : ''
                   }`}
                   aria-label="choose mentee"
-                  onClick={() => updateMentee(mentee._id, mentee)}
+                  //When click on button toggle Modal to confirm the choice
+                  onClick={toggleModal}
                 >
                   <CheckIcon className="h-4 w-auto" aria-hidden="true" />
                 </button>
@@ -71,7 +96,7 @@ function MenteeDetailView({ mentees, updateMentee, numberChosenMentees }) {
               </div>
             </div>
           </div>
-          {/* Details */}
+          {/* Application details */}
           <div className="border-t border-gray-200">
             <dl>
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -119,6 +144,26 @@ function MenteeDetailView({ mentees, updateMentee, numberChosenMentees }) {
             </dl>
           </div>
         </div>
+        {showModal && amountMenteesChosen < 7 ? (
+          <ModalConfirm
+            mentee={mentee}
+            updateMentee={updateMentee}
+            toggleModal={toggleModal}
+            modalContent={submitChoice}
+          />
+        ) : (
+          <></>
+        )}
+        {showModal && amountMenteesChosen >= 7 ? (
+          <ModalError
+            mentee={mentee}
+            updateMentee={updateMentee}
+            toggleModal={toggleModal}
+            modalContent={noMoreChoice}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     ) : (
       // TODO: style loading

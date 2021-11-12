@@ -1,10 +1,8 @@
-// import { Fragment } from 'react';
-import { Disclosure } from '@headlessui/react'; //Menu, Transition
-import { MenuIcon, XIcon } from '@heroicons/react/outline'; //BellIcon
+import { Disclosure } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigationTabs = [
-  { name: 'Home', href: '/', current: true },
-  // { name: 'My mentees', href: '/mymentees', current: false },
+  { name: 'Review applicants', href: '/', current: true },
 ];
 
 // Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars

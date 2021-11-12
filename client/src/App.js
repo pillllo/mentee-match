@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ApiService from './ApiService';
-import Navbar from './components/Navbar/Navbar';
-import MenteeList from './components/MenteeList/MenteeList';
-import MenteeDetailView from './components/MenteeDetailView/MenteeDetailView';
+import Navbar from './components/Navbar';
+import MenteeList from './components/MenteeList';
+import MenteeDetailView from './components/MenteeDetailView';
 
 function App() {
   const [allMentees, setAllMentees] = useState([]);
+  // FIXME: fix display of chosen mentees -> update when mentee is marked as chosen
   const [remainingMentees, setRemainingMentees] = useState([]);
-  const [numberChosenMentees, setNumberChosenMentees] = useState(0);
+  const [amountMenteesChosen, setNumberChosenMentees] = useState(0);
 
+  //
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
       setAllMentees(menteeList);
@@ -38,10 +40,11 @@ function App() {
         return [...menteeList];
       });
     });
-    console.log('🎯 updateMentee function: click');
   }
 
-  console.log('🎯 new number chosen mentees', numberChosenMentees);
+  // console.log('🎯 Mentees', allMentees[0].chosen);
+  // console.log('🎯 Mentees', allMentees[6].chosen);
+  console.log('🎯 new number chosen mentees', amountMenteesChosen);
 
   return (
     <div className="">
@@ -53,8 +56,8 @@ function App() {
           element={
             <MenteeDetailView
               mentees={allMentees}
+              amountMenteesChosen={amountMenteesChosen}
               updateMentee={updateMentee}
-              numberChosenMentees={numberChosenMentees}
             />
           }
         />
