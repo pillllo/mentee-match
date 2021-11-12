@@ -6,6 +6,7 @@ function ModalConfirm({ mentee, updateMentee, toggleModal }) {
   const [open, setOpen] = useState(true);
 
   const confirmButtonRef = useRef(null);
+  console.log('🎯 Modal view executed');
 
   return (
     <Transition.Root show={open} as={Fragment}>

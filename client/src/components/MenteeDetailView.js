@@ -11,7 +11,7 @@ import {
 import ModalConfirm from './Modals/ModalConfirm';
 import ModalError from './Modals/ModalError';
 
-function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
+function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
   const [showModal, setShowModal] = useState(false);
 
   // Find mentee for which the detail view should be shown, based on the id in the URL params
@@ -145,7 +145,7 @@ function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
             </dl>
           </div>
         </div>
-        {showModal && amountMenteesChosen < 7 ? (
+        {showModal && countMenteesChosenByMe < 7 ? (
           <ModalConfirm
             mentee={mentee}
             updateMentee={updateMentee}
@@ -155,7 +155,7 @@ function MenteeDetailView({ mentees, updateMentee, amountMenteesChosen }) {
         ) : (
           <></>
         )}
-        {showModal && amountMenteesChosen >= 7 ? (
+        {showModal && countMenteesChosenByMe >= 7 ? (
           <ModalError
             mentee={mentee}
             updateMentee={updateMentee}

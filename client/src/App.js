@@ -4,26 +4,21 @@ import ApiService from './ApiService';
 import Navbar from './components/Navbar';
 import MenteeList from './components/MenteeList';
 import MenteeDetailView from './components/MenteeDetailView';
-import DropDown from './components/Functional/DropDown';
 
 function App() {
   const [allMentees, setAllMentees] = useState([]);
-  // FIXME: fix display of chosen mentees -> update when mentee is marked as chosen
-  const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
   const [filteredMentees, setFilteredMentees] = useState([]);
   const [remainingMentees, setRemainingMentees] = useState([]);
+  const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
 
   //
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
       setAllMentees(menteeList);
-      // const menteesNotChosen = menteeList.filter(
-      //   (mentee) => mentee.chosen === false
-      // );
-      // setRemainingMentees(menteesNotChosen);
     });
   }, []);
 
+  // Update count of mentees selected by me and list of mentees that remain for choosing
   useEffect(() => {
     // Update the count of mentees selected by me
     const updatedNumber = allMentees.filter(
@@ -50,13 +45,30 @@ function App() {
     });
   }
 
-  console.log('🎯 Remaining mentees', remainingMentees);
+  function filterMentees(criteria, value) {
+    const filteredMenteeList = allMentees.filter((mentee) => {
+      return mentee[criteria] === value;
+    });
+    setFilteredMentees(filteredMenteeList);
+  }
+
+  // console.log('🎯 Remaining mentees', remainingMentees);
+  // console.log('🎯 Filtered mentees', filteredMentees);
 
   return (
     <div className="">
       <Navbar className="" />
       <Routes>
-        <Route path="/" element={<MenteeList mentees={allMentees} />} />
+        <Route
+          path="/"
+          element={
+            <MenteeList
+              mentees={allMentees}
+              filteredMentees={filteredMentees}
+              filterMentees={filterMentees}
+            />
+          }
+        />
         <Route
           path="/mentee/:id"
           element={
