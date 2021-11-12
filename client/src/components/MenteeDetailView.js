@@ -7,12 +7,14 @@ import {
   ArrowRightIcon,
   XIcon,
   CheckIcon,
+  BookmarkIcon,
 } from '@heroicons/react/outline';
 import ModalConfirm from './Modals/ModalConfirm';
 import ModalError from './Modals/ModalError';
 
 function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
   const [showModal, setShowModal] = useState(false);
+  const [bookmarkOn, setBookmarkOn] = useState(false);
 
   // Find mentee for which the detail view should be shown, based on the id in the URL params
   const params = useParams();
@@ -22,18 +24,29 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
     setShowModal(!showModal);
   }
 
+  function toggleBookmark(id, mentee) {
+    updateMentee(mentee._id, mentee, 'bookmarked');
+    setBookmarkOn(!bookmarkOn);
+  }
+
   // Content type to be passed to the Modal depending on what modal it is
   const submitChoice = {
     title: 'Submit your choice',
-    // TODO: personalise the message to the person's name
-    text: `Do you want to choose this person as your mentee?`,
+    text: `Do you want to choose this ${mentee.name} as your mentee?`,
     buttonText: 'Choose',
     icon: 'CheckCircleIcon',
   };
 
   const noMoreChoice = {
     title: 'No choice left',
-    text: `You have already chosen 2 mentees.`,
+    text: `You have already chosen 4 mentees.`,
+    buttonText: 'Close',
+    icon: 'ExclamationIcon',
+  };
+
+  const alreadyChosen = {
+    title: 'Choice not available',
+    text: `You have already chosen this mentee.`,
     buttonText: 'Close',
     icon: 'ExclamationIcon',
   };
@@ -69,11 +82,24 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
                   <ArrowRightIcon className="h-4 w-auto" aria-hidden="true" />
                 </Link>
               </div>
+              {/* Button bookmark */}
+              <div className="ml-3 inline-flex rounded-md shadow">
+                <button
+                  className={`inline-flex items-center justify-center px-4 py-2 border
+                  border-transparent text-base font-medium rounded-md text-white
+                  bg-indigo-600 hover:bg-indigo-700 ${
+                    !mentee.bookmarked ? 'opacity-50' : ''
+                  }`}
+                  aria-label="bookmark mentee"
+                  onClick={() => toggleBookmark(mentee._id, mentee)}
+                >
+                  <BookmarkIcon className="h-4 w-auto" aria-hidden="true" />
+                </button>
+              </div>
               {/* Button choose */}
               <div className="ml-3 inline-flex rounded-md shadow">
-                {/* If mentee has choosen by anyone, show button in different color and disallow selecting the button */}
+                {/* If mentee was choosen already, show button in different color and disallow selecting the button */}
                 <button
-                  // TODO: disable button when mentee has been chosen already
                   className={`inline-flex items-center justify-center px-4 py-2 border
                   border-transparent text-base font-medium rounded-md text-white
                   bg-indigo-600 hover:bg-indigo-700 ${
@@ -145,7 +171,7 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
             </dl>
           </div>
         </div>
-        {showModal && countMenteesChosenByMe < 7 ? (
+        {showModal && countMenteesChosenByMe < 4 ? (
           <ModalConfirm
             mentee={mentee}
             updateMentee={updateMentee}
@@ -155,7 +181,17 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
         ) : (
           <></>
         )}
-        {showModal && countMenteesChosenByMe >= 7 ? (
+        {showModal && countMenteesChosenByMe < 4 && mentee.chosenByMe ? (
+          <ModalError
+            mentee={mentee}
+            updateMentee={updateMentee}
+            toggleModal={toggleModal}
+            modalContent={alreadyChosen}
+          />
+        ) : (
+          <></>
+        )}
+        {showModal && countMenteesChosenByMe >= 4 ? (
           <ModalError
             mentee={mentee}
             updateMentee={updateMentee}

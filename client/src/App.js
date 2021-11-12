@@ -32,9 +32,26 @@ function App() {
     setRemainingMentees(menteesNotChosen);
   }, [allMentees]);
 
+  // function updateMentee(id, mentee) {
+  //   mentee.chosen = !mentee.chosen;
+  //   mentee.chosenByMe = !mentee.chosenByMe;
+  //   ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
+  //     setAllMentees((menteeList) => {
+  //       const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
+  //       menteeToUpdate.chosen = updatedMentee.chosen;
+  //       menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
+  //       return [...menteeList];
+  //     });
+  //   });
+  // }
+
+  // Update boolean values in mentee object (e.g. chosen, bookmarked), add values to be changes as additional args in the function
   function updateMentee(id, mentee) {
-    mentee.chosen = !mentee.chosen;
-    mentee.chosenByMe = !mentee.chosenByMe;
+    const keys = [...arguments].slice(2);
+    keys.forEach((key) => {
+      mentee[key] = !mentee[key];
+    });
+    // mentee.chosenByMe = !mentee.chosenByMe;
     ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
       setAllMentees((menteeList) => {
         const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
@@ -52,8 +69,7 @@ function App() {
     setFilteredMentees(filteredMenteeList);
   }
 
-  // console.log('🎯 Remaining mentees', remainingMentees);
-  // console.log('🎯 Filtered mentees', filteredMentees);
+  console.log('🎯 Updated mentees', allMentees);
 
   return (
     <div className="">
@@ -63,7 +79,7 @@ function App() {
           path="/"
           element={
             <MenteeList
-              mentees={allMentees}
+              mentees={remainingMentees}
               filteredMentees={filteredMentees}
               filterMentees={filterMentees}
             />

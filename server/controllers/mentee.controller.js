@@ -10,20 +10,6 @@ async function getAll(req, res) {
   }
 }
 
-async function filterMentees(req, res) {
-  try {
-    const { careerPath } = req.query;
-    const filteredMentees = mentees.filter((mentee) => {
-      return mentee.careerPath.toLowerCase() === careerPath.toLowerCase();
-    });
-    res.status(200);
-    res.send(filteredMentees);
-  } catch {
-    res.status(500);
-    res.send('Could not get the list of mentees.');
-  }
-}
-
 async function updateChoice(req, res) {
   try {
     const { _id, chosen, chosenByMe } = req.body;
@@ -39,4 +25,4 @@ async function updateChoice(req, res) {
   }
 }
 
-module.exports = { getAll, filterMentees, updateChoice };
+module.exports = { getAll, updateChoice };

@@ -8,12 +8,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function DropDown() {
+function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-          Options
+          Filter by...
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -31,99 +31,99 @@ function DropDown() {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <p
+                  onClick={() => myMenteesFilterHandler()}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'block px-4 py-2 text-sm cursor-pointer'
                   )}
                 >
-                  Edit
-                </a>
+                  My mentees
+                </p>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <p
+                  onClick={() => myMenteesFilterHandler()}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'block px-4 py-2 text-sm cursor-pointer'
                   )}
                 >
-                  Duplicate
-                </a>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Archive
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Move
-                </a>
+                  Bookmarked mentees
+                </p>
               )}
             </Menu.Item>
           </div>
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <p
+                  onClick={() => careerPathFilterHandler('UX Research')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'block px-4 py-2 text-sm cursor-pointer'
                   )}
                 >
-                  Share
-                </a>
+                  UX Research
+                </p>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <p
+                  onClick={() => careerPathFilterHandler('UX Design')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'block px-4 py-2 text-sm cursor-pointer'
                   )}
                 >
-                  Add to favorites
-                </a>
+                  UX Design
+                </p>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <p
+                  onClick={() => careerPathFilterHandler('UI & Visual Design')}
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm cursor-pointer'
+                  )}
+                >
+                  UI & Visual Design
+                </p>
               )}
             </Menu.Item>
           </div>
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <p
+                  onClick={() =>
+                    careerPathFilterHandler('Frontend Development')
+                  }
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'block px-4 py-2 text-sm cursor-pointer'
                   )}
                 >
-                  Delete
-                </a>
+                  Frontend Development
+                </p>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <p
+                  onClick={() => careerPathFilterHandler('Backend Development')}
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm cursor-pointer'
+                  )}
+                >
+                  Backend Development
+                </p>
               )}
             </Menu.Item>
           </div>

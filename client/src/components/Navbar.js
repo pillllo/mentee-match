@@ -2,7 +2,8 @@ import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigationTabs = [
-  { name: 'Review applicants', href: '/', current: true },
+  { name: 'Review applications', href: '/', current: true },
+  { name: 'Tbd...', href: '/', current: true },
 ];
 
 // Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars
@@ -32,7 +33,7 @@ function Navbar() {
 
               {/* Logo section */}
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
+                <div className="flex-shrink-0 flex items-center mr-5">
                   <img
                     className="block h-4 w-auto"
                     src="./assets/logo-white.png"

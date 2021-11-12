@@ -1,36 +1,61 @@
 import { Link } from 'react-router-dom';
-import DropDown from './Functional/DropDown';
 import { useState } from 'react';
+import { XIcon } from '@heroicons/react/outline';
+import DropDown from './Functional/DropDown';
 
 function MenteeList({ mentees, filteredMentees, filterMentees }) {
+  const [myMenteesFilterOn, setMyMenteesFilterOn] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
-  const [menteesToDisplay, setMenteesToDisplay] = useState(mentees);
 
-  function filterHandler() {
-    !filterOn
-      ? filterMentees('chosenByMe', true)
-      : filterMentees('_id', undefined);
-    !filterOn
-      ? setMenteesToDisplay(mentees)
-      : setMenteesToDisplay(filteredMentees);
-    setFilterOn(!filterOn);
+  function myMenteesFilterHandler() {
+    filterMentees('chosenByMe', true);
+    setFilterOn(true);
   }
 
-  // console.log('🎯 Mentees to display:', menteesToDisplay);
+  function bookmarkedMenteesFilterHandler() {
+    filterMentees('bookmarked', true);
+    setFilterOn(true);
+  }
+
+  function careerPathFilterHandler(careerPath) {
+    filterMentees('careerPath', careerPath);
+    setFilterOn(true);
+  }
 
   return (
     <div className="md:m-6">
       {/* Head section with filtering options */}
-      <div>
-        <div className="inline-flex rounded-md shadow">
-          <button
-            onClick={filterHandler}
-            className="inline-flex items-center justify-center p-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-            My mentees
-          </button>
-        </div>
-        <DropDown />
+      <div className="flex justify-end mb-6">
+        {/* <button
+          onClick={myMenteesFilterHandler}
+          // className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mr-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+          className={`inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mr-3 text-sm font-medium ${
+            myMenteesFilterOn
+              ? 'text-white bg-indigo-600 hover:bg-indigo-700'
+              : 'text-gray-700 bg-white hover:bg-gray-50'
+          }`}
+        >
+          My mentees
+        </button> */}
+
+        <DropDown
+          careerPathFilterHandler={careerPathFilterHandler}
+          myMenteesFilterHandler={myMenteesFilterHandler}
+          bookmarkedMenteesFilterHandler={bookmarkedMenteesFilterHandler}
+        />
+        {/* Button to clear filter - display only if filter is active */}
+        {filterOn ? (
+          <div className="ml-3 inline-flex rounded-md shadow">
+            <button
+              onClick={() => setFilterOn(false)}
+              className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm p-2 bg-white text-base font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
+            >
+              <XIcon className="h-5 w-auto" aria-hidden="true" />
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -71,7 +96,7 @@ function MenteeList({ mentees, filteredMentees, filterMentees }) {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {/* TODO: choose which fields to show & how, then adjust table headers */}
-                  {menteesToDisplay.map((mentee) => (
+                  {(filterOn ? filteredMentees : mentees).map((mentee) => (
                     <tr key={mentee._id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
@@ -108,6 +133,15 @@ function MenteeList({ mentees, filteredMentees, filterMentees }) {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="flex flex-row justify-center mt-16">
+              {filterOn && filteredMentees.length === 0 ? (
+                <p className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  No results
+                </p>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
