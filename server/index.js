@@ -6,9 +6,17 @@ const router = require('./router');
 const PORT = 3001;
 const app = express();
 
-app.use(cors());
+const corsConfig = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(router);
+app.get('*', (req, res) => {
+  res.status(404).send('Sorry, not found 😞');
+});
 
 (async function () {
   app.listen(PORT, () => {
