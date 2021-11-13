@@ -22,6 +22,8 @@
     }
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.2.0",
+    "eslint-plugin-react": "^7.27.0"
   }
 }

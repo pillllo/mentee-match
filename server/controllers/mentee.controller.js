@@ -1,12 +1,10 @@
-const mentees = require('../models/mock');
+const mentees = require('../models/mockMentees');
 
 async function getAll(req, res) {
   try {
-    res.status(200);
-    res.send(mentees);
+    res.status(200).send(mentees);
   } catch {
-    res.status(500);
-    res.send('Could not get the list of mentees.');
+    res.status(500).send('Could not get the list of mentees.');
   }
 }
 
@@ -17,11 +15,9 @@ async function updateChoice(req, res) {
     mentees[index].chosen = chosen;
     mentees[index].chosenByMe = chosenByMe;
     const updatedMentee = mentees[index];
-    res.status(201);
-    res.send(updatedMentee);
+    res.status(201).send(updatedMentee);
   } catch {
-    res.status(500);
-    res.send('Could not update mentee choice.');
+    res.status(500).send('Could not update mentee choice.');
   }
 }
 
