@@ -18,31 +18,27 @@ function Dashboard({ setIsAuthenticated }) {
   }, []);
 
   // Update count of mentees selected by me and list of mentees that remain for choosing
-  useEffect(() => {
-    // Update the count of mentees selected by me
-    const updatedNumber = allMentees.filter(
-      (mentee) => mentee.chosenByMe
-    ).length;
-    setCountMenteesChosenByMe(updatedNumber);
-    // Update the list of mentees that remain for choosing
-    const menteesNotChosen = allMentees.filter(
-      (mentee) => mentee.chosen === false
-    );
-    setRemainingMentees(menteesNotChosen);
-  }, [allMentees]);
+  // useEffect(() => {
+  //   // Update the count of mentees selected by me
+  //   const updatedNumber = allMentees.filter(
+  //     (mentee) => mentee.chosenByMe
+  //   ).length;
+  //   setCountMenteesChosenByMe(updatedNumber);
+  //   // Update the list of mentees that remain for choosing
+  //   const menteesNotChosen = allMentees.filter(
+  //     (mentee) => mentee.chosen === false
+  //   );
+  //   setRemainingMentees(menteesNotChosen);
+  // }, [allMentees]);
 
   // Update boolean values in mentee object (e.g. chosen, bookmarked), add values to be changes as additional args in the function
-  function updateMentee(id, mentee) {
-    const keys = [...arguments].slice(2);
-    keys.forEach((key) => {
-      mentee[key] = !mentee[key];
-    });
-    // mentee.chosenByMe = !mentee.chosenByMe;
-    ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
+  function updateMentee(menteeId, mentorId) {
+    ApiService.putMenteeChoice(menteeId, mentorId).then((updatedMentee) => {
       setAllMentees((menteeList) => {
-        const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
-        menteeToUpdate.chosen = updatedMentee.chosen;
-        menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
+        const menteeToUpdate = menteeList.find(
+          (mentee) => mentee.id === menteeId
+        );
+        menteeToUpdate.MentorId = updatedMentee.MentorId;
         return [...menteeList];
       });
     });
@@ -55,7 +51,7 @@ function Dashboard({ setIsAuthenticated }) {
     setFilteredMentees(filteredMenteeList);
   }
 
-  console.log('🎯 Updated mentees', allMentees);
+  console.log('🎯 Updated mentees', allMentees[21]);
 
   return (
     <div>
@@ -96,3 +92,20 @@ function Dashboard({ setIsAuthenticated }) {
 }
 
 export default Dashboard;
+
+// OLD VERSION update mentee with mock data
+// function updateMentee(id, mentee) {
+//   const keys = [...arguments].slice(2);
+//   keys.forEach((key) => {
+//     mentee[key] = !mentee[key];
+//   });
+//   // mentee.chosenByMe = !mentee.chosenByMe;
+//   ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
+//     setAllMentees((menteeList) => {
+//       const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
+//       menteeToUpdate.chosen = updatedMentee.chosen;
+//       menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
+//       return [...menteeList];
+//     });
+//   });
+// }

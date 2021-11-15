@@ -75,7 +75,8 @@ function ModalConfirm({ mentee, updateMentee, toggleModal }) {
                   onClick={() => {
                     toggleModal();
                     setOpen(false);
-                    updateMentee(mentee._id, mentee, 'chosen', 'chosenByMe');
+                    // TODO: for now mentor id is hardcoded
+                    updateMentee(mentee.id, 10);
                   }}
                   ref={confirmButtonRef}
                 >

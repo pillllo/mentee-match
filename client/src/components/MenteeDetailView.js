@@ -12,6 +12,21 @@ import {
 import ModalConfirm from './Modals/ModalConfirm';
 import ModalError from './Modals/ModalError';
 
+// Content type to be passed to the Modal depending on what modal it is
+const noMoreChoice = {
+  title: 'No choice left',
+  text: `You have already chosen 4 mentees.`,
+  buttonText: 'Close',
+  icon: 'ExclamationIcon',
+};
+
+const alreadyChosen = {
+  title: 'Choice not available',
+  text: `You have already chosen this mentee.`,
+  buttonText: 'Close',
+  icon: 'ExclamationIcon',
+};
+
 function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
   const [showModal, setShowModal] = useState(false);
   const [bookmarkOn, setBookmarkOn] = useState(false);
@@ -22,8 +37,12 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
 
   // Prepare data to move from one detail view to the next
   const index = mentees.indexOf(mentee);
+  console.log('🎯 Index', index);
   const previousMentee = index > 0 ? mentees[index - 1] : mentee;
   const nextMentee = index < mentees.length - 1 ? mentees[index + 1] : mentee;
+
+  // Prepare data for allowing mentor to select mentee as their choice
+  const mentorAssigned = mentee.MentorId ? true : false;
 
   function toggleModal() {
     setShowModal(!showModal);
@@ -34,31 +53,9 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
   //   setBookmarkOn(!bookmarkOn);
   // }
 
-  // Content type to be passed to the Modal depending on what modal it is
-  const submitChoice = {
-    title: 'Submit your choice',
-    // text: `Do you want to choose this ${mentee.name} as your mentee?`,
-    buttonText: 'Choose',
-    icon: 'CheckCircleIcon',
-  };
-
-  const noMoreChoice = {
-    title: 'No choice left',
-    text: `You have already chosen 4 mentees.`,
-    buttonText: 'Close',
-    icon: 'ExclamationIcon',
-  };
-
-  const alreadyChosen = {
-    title: 'Choice not available',
-    text: `You have already chosen this mentee.`,
-    buttonText: 'Close',
-    icon: 'ExclamationIcon',
-  };
-
   return (
     // TODO: style the detail view card according to data (e.g. 2 columns at the top)
-    // Only render detail view if the mentees array has been loaded from the backend, else show loading spinner
+    // Only render detail view if the mentees array has been loaded from the server, else show loading spinner
     mentees.length ? (
       <div className="mx-24 my-10">
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -107,7 +104,7 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
                   className={`inline-flex items-center justify-center px-4 py-2 border
                   border-transparent text-base font-medium rounded-md text-white
                   bg-indigo-600 hover:bg-indigo-700 ${
-                    mentee.chosen ? 'opacity-50' : ''
+                    mentorAssigned ? 'opacity-50' : ''
                   }`}
                   aria-label="choose mentee"
                   //When click on button toggle Modal to confirm the choice
@@ -180,7 +177,6 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
             mentee={mentee}
             updateMentee={updateMentee}
             toggleModal={toggleModal}
-            modalContent={submitChoice}
           />
         ) : (
           <></>

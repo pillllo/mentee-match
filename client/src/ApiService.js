@@ -20,7 +20,10 @@ function getMentees() {
 // }
 
 function putMenteeChoice(menteeId, mentorId) {
-  return fetchRequest(`/mentee/:${menteeId}/:${mentorId}'`);
+  console.log('🎯 ApiService', `/mentee/${menteeId}/${mentorId}`);
+  return fetchRequest(`/mentee/${menteeId}/${mentorId}`, {
+    method: 'PUT',
+  });
 }
 
 function loginMentor(mentor) {
