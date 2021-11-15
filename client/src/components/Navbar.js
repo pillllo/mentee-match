@@ -2,7 +2,7 @@ import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigationTabs = [
-  { name: 'Review applications', href: '/', current: true },
+  { name: 'Review applications', href: '/dashboard', current: true },
   { name: 'Tbd...', href: '/', current: true },
 ];
 

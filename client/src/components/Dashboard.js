@@ -7,29 +7,31 @@ import Login from './Login';
 
 function Dashboard({ setIsAuthenticated }) {
   const [allMentees, setAllMentees] = useState([]);
-  const [filteredMentees, setFilteredMentees] = useState([]);
   const [remainingMentees, setRemainingMentees] = useState([]);
+  const [filteredMentees, setFilteredMentees] = useState([]);
   const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
 
+  const myId = '10';
+
+  // Import all available mentees on page load
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
       setAllMentees(menteeList);
     });
   }, []);
 
-  // Update count of mentees selected by me and list of mentees that remain for choosing
-  // useEffect(() => {
-  //   // Update the count of mentees selected by me
-  //   const updatedNumber = allMentees.filter(
-  //     (mentee) => mentee.chosenByMe
-  //   ).length;
-  //   setCountMenteesChosenByMe(updatedNumber);
-  //   // Update the list of mentees that remain for choosing
-  //   const menteesNotChosen = allMentees.filter(
-  //     (mentee) => mentee.chosen === false
-  //   );
-  //   setRemainingMentees(menteesNotChosen);
-  // }, [allMentees]);
+  // Update count of mentees selected by "me"
+  // Update list of mentees that remain for choosing
+  useEffect(() => {
+    // Update the count of mentees selected by "me"
+    const updatedNumber = allMentees.filter(
+      (mentee) => mentee.MentorId === myId
+    ).length;
+    setCountMenteesChosenByMe(updatedNumber);
+    // Update the list of mentees that remain for choosing
+    const menteesNotChosen = allMentees.filter((mentee) => !mentee.MentorId);
+    setRemainingMentees(menteesNotChosen);
+  }, [allMentees]);
 
   // Update boolean values in mentee object (e.g. chosen, bookmarked), add values to be changes as additional args in the function
   function updateMentee(menteeId, mentorId) {
@@ -51,7 +53,9 @@ function Dashboard({ setIsAuthenticated }) {
     setFilteredMentees(filteredMenteeList);
   }
 
-  console.log('🎯 Updated mentees', allMentees[21]);
+  console.log('🎯 Count mentees', countMenteesChosenByMe);
+  console.log('🎯 All mentees', allMentees.length);
+  console.log('🎯 Remaining mentees', remainingMentees.length);
 
   return (
     <div>
@@ -64,8 +68,7 @@ function Dashboard({ setIsAuthenticated }) {
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
         <Route
-          // TODO: change to dashboard
-          path="/"
+          path="/dashboard"
           element={
             <MenteeList
               mentees={allMentees}
@@ -80,6 +83,7 @@ function Dashboard({ setIsAuthenticated }) {
           element={
             <MenteeDetailView
               mentees={allMentees}
+              myId={myId}
               countMenteesChosenByMe={countMenteesChosenByMe}
               updateMentee={updateMentee}
               setIsAuthenticated={setIsAuthenticated}
