@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-// TODO: remove
 import auth from '../utils/auth';
-import apiService from './../ApiService';
+import ApiService from './../ApiService';
 
 const initialState = {
   email: '',
@@ -24,15 +23,13 @@ const Login = (props) => {
     // Add logic to send a request to API service /login
     const { email, password } = state;
     const user = { email, password };
-    const res = await apiService.login(user);
+    const res = await ApiService.loginMentor(user);
     if (res.error) {
-      alert(res);
+      alert(`${res}`);
       setState(initialState);
     } else {
       // This sets isAuthenticated = true and redirects to profile
-      // TODO: try remove props.
       props.setIsAuthenticated(true);
-      // TODO: set the right path for someone who is logged in
       auth.login(() => props.history.push('/'));
     }
   };

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const router = require('./router');
+const db = require('./models/index');
 
 const PORT = 3001;
 const app = express();
@@ -19,6 +20,12 @@ app.get('*', (req, res) => {
 });
 
 (async function () {
+  try {
+    await db.sequelize.sync();
+    console.log(`🎯 Postgres db is connected through sequelize`);
+  } catch {
+    console.log(`🎯 Could not connec to db`);
+  }
   app.listen(PORT, () => {
     console.log(`🎯 Server is listening at ${PORT}`);
   });

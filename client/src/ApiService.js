@@ -14,22 +14,25 @@ function getMentees() {
 function putMenteeChoice(id, mentee) {
   return fetchRequest(`/mentee/:${id}'`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(mentee),
   });
 }
 
-// Input criteria (key-value pair) by which to filter
-function getFilteredMentees(careerPath) {
-  return fetchRequest(`/?careerPath=${careerPath}`);
+function loginMentor(mentor) {
+  return fetchRequest(`/login`, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(mentor),
+  });
 }
 
 const ApiService = {
   getMentees,
   putMenteeChoice,
-  getFilteredMentees,
+  loginMentor,
 };
 
 export default ApiService;

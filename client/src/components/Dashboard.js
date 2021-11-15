@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ApiService from '../ApiService';
 import MenteeList from './MenteeList';
 import MenteeDetailView from './MenteeDetailView';
+import Login from './Login';
 
 function Dashboard({ setIsAuthenticated }) {
   const [allMentees, setAllMentees] = useState([]);
@@ -10,7 +11,6 @@ function Dashboard({ setIsAuthenticated }) {
   const [remainingMentees, setRemainingMentees] = useState([]);
   const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
 
-  //
   useEffect(() => {
     ApiService.getMentees().then((menteeList) => {
       setAllMentees(menteeList);
@@ -58,16 +58,24 @@ function Dashboard({ setIsAuthenticated }) {
   console.log('🎯 Updated mentees', allMentees);
 
   return (
-    <div className="">
-      {/* <Navbar isAuthenticated={isAuthenticated} /> */}
+    <div>
       <Routes>
         <Route
+          path="/login"
+          // render={(props) => (
+          //   <Login {...props} setIsAuthenticated={setIsAuthenticated} />
+          // )}
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+        />
+        <Route
+          // TODO: change to dashboard
           path="/"
           element={
             <MenteeList
-              mentees={remainingMentees}
+              mentees={allMentees}
               filteredMentees={filteredMentees}
               filterMentees={filterMentees}
+              setIsAuthenticated={setIsAuthenticated}
             />
           }
         />
@@ -78,6 +86,7 @@ function Dashboard({ setIsAuthenticated }) {
               mentees={allMentees}
               countMenteesChosenByMe={countMenteesChosenByMe}
               updateMentee={updateMentee}
+              setIsAuthenticated={setIsAuthenticated}
             />
           }
         />

@@ -18,16 +18,16 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
 
   // Find mentee for which the detail view should be shown, based on the id in the URL params
   const params = useParams();
-  const mentee = mentees.find((mentee) => mentee._id === parseInt(params.id));
+  const mentee = mentees.find((mentee) => mentee.id === parseInt(params.id));
 
   function toggleModal() {
     setShowModal(!showModal);
   }
 
-  function toggleBookmark(id, mentee) {
-    updateMentee(mentee._id, mentee, 'bookmarked');
-    setBookmarkOn(!bookmarkOn);
-  }
+  // function toggleBookmark(id, mentee) {
+  //   updateMentee(mentee.id, mentee, 'bookmarked');
+  //   setBookmarkOn(!bookmarkOn);
+  // }
 
   // Content type to be passed to the Modal depending on what modal it is
   const submitChoice = {
@@ -66,7 +66,7 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
               {/* Button previous */}
               <div className="inline-flex rounded-md shadow">
                 <Link
-                  to={`/mentee/${mentee._id - 1 ? mentee._id - 1 : mentee._id}`}
+                  to={`/mentee/${mentee.id - 1 ? mentee.id - 1 : mentee.id}`}
                   className="inline-flex items-center justify-center p-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                 >
                   <ArrowLeftIcon className="h-4 w-auto" aria-hidden="true" />
@@ -76,14 +76,14 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
               <div className="ml-3 inline-flex rounded-md shadow">
                 <Link
                   // TODO: fix ternary operator
-                  to={`/mentee/${mentee._id + 1 ? mentee._id + 1 : mentee._id}`}
+                  to={`/mentee/${mentee.id + 1 ? mentee.id + 1 : mentee.id}`}
                   className="inline-flex items-center justify-center p-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                 >
                   <ArrowRightIcon className="h-4 w-auto" aria-hidden="true" />
                 </Link>
               </div>
               {/* Button bookmark */}
-              <div className="ml-3 inline-flex rounded-md shadow">
+              {/* <div className="ml-3 inline-flex rounded-md shadow">
                 <button
                   className={`inline-flex items-center justify-center px-4 py-2 border
                   border-transparent text-base font-medium rounded-md text-white
@@ -91,11 +91,11 @@ function MenteeDetailView({ mentees, updateMentee, countMenteesChosenByMe }) {
                     !mentee.bookmarked ? 'opacity-50' : ''
                   }`}
                   aria-label="bookmark mentee"
-                  onClick={() => toggleBookmark(mentee._id, mentee)}
+                  onClick={() => toggleBookmark(mentee.id, mentee)}
                 >
                   <BookmarkIcon className="h-4 w-auto" aria-hidden="true" />
                 </button>
-              </div>
+              </div> */}
               {/* Button choose */}
               <div className="ml-3 inline-flex rounded-md shadow">
                 {/* If mentee was choosen already, show button in different color and disallow selecting the button */}

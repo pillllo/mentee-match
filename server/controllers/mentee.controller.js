@@ -1,7 +1,9 @@
 const mentees = require('../models/mockMentees');
+const db = require('../models/index');
 
 async function getAll(req, res) {
   try {
+    const mentees = await db.Mentee.findAll();
     res.status(200).send(mentees);
   } catch {
     res.status(500).send('Could not get the list of mentees.');

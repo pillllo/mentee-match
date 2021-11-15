@@ -60,7 +60,7 @@ function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
             <Menu.Item>
               {({ active }) => (
                 <p
-                  onClick={() => careerPathFilterHandler('UX Research')}
+                  onClick={() => careerPathFilterHandler('UX Researcher')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm cursor-pointer'
@@ -73,7 +73,7 @@ function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
             <Menu.Item>
               {({ active }) => (
                 <p
-                  onClick={() => careerPathFilterHandler('UX Design')}
+                  onClick={() => careerPathFilterHandler('UX Designer')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm cursor-pointer'
@@ -86,7 +86,9 @@ function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
             <Menu.Item>
               {({ active }) => (
                 <p
-                  onClick={() => careerPathFilterHandler('UI & Visual Design')}
+                  onClick={() =>
+                    careerPathFilterHandler('UI & Visual Designer')
+                  }
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm cursor-pointer'
@@ -101,9 +103,7 @@ function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
             <Menu.Item>
               {({ active }) => (
                 <p
-                  onClick={() =>
-                    careerPathFilterHandler('Frontend Development')
-                  }
+                  onClick={() => careerPathFilterHandler('Frontend Developer')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm cursor-pointer'
@@ -116,7 +116,7 @@ function DropDown({ myMenteesFilterHandler, careerPathFilterHandler }) {
             <Menu.Item>
               {({ active }) => (
                 <p
-                  onClick={() => careerPathFilterHandler('Backend Development')}
+                  onClick={() => careerPathFilterHandler('Backend Developer')}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm cursor-pointer'

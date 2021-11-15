@@ -14,6 +14,7 @@ class Auth {
   }
 
   isAuthenticated() {
+    // TODO: set back to undefined
     return this.authenticated;
   }
 }

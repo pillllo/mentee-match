@@ -18,6 +18,7 @@ module.exports = [
     age: '26-30',
     mom: true,
     other: 'Lorem ipsum lorem ipsum lorem ipsum.',
+    // change to relational DB: my_mentor (one mentee to one mentor), bookmarked (many mentees to many mentors)
     bookmarked: false,
     chosen: false,
     chosenByMe: false,
