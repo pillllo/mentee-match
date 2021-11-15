@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     feTech: DataTypes.STRING,
     beTech: DataTypes.STRING,
     beTechOther: DataTypes.STRING,
+    MentorId: DataTypes.BIGINT,
   });
   return Mentee;
 };
