@@ -1,4 +1,14 @@
 const mentors = require('../models/mockMentors');
+const db = require('../models/index');
+
+async function getAll(req, res) {
+  try {
+    const mentors = await db.Mentor.findAll();
+    res.status(200).send(mentors);
+  } catch {
+    res.status(500).send('Could not get the list of mentors.');
+  }
+}
 
 async function login(req, res) {
   try {
@@ -17,4 +27,4 @@ async function login(req, res) {
 //   } catch {}
 // }
 
-module.exports = { login };
+module.exports = { getAll, login };

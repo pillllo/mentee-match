@@ -8,4 +8,7 @@ router.get('/', menteeController.getAll);
 router.post('/login', mentorController.login);
 router.put('/mentee/:id', menteeController.updateChoice);
 
+// route to test db connection
+router.get('/mentors', mentorController.getAll);
+
 module.exports = router;
