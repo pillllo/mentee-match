@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', menteeController.getAll);
 router.post('/login', mentorController.login);
-router.put('/mentee/:id', menteeController.updateChoice);
+router.put('/mentee/:menteeId/:mentorId', menteeController.updateChoice);
 
 // route to test db connection
 router.get('/mentors', mentorController.getAll);

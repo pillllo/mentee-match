@@ -11,12 +11,16 @@ function getMentees() {
   return fetchRequest('/');
 }
 
-function putMenteeChoice(id, mentee) {
-  return fetchRequest(`/mentee/:${id}'`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(mentee),
-  });
+// function putMenteeChoice(id, mentee, mentor) {
+//   return fetchRequest(`/mentee/:${id}'`, {
+//     method: 'PUT',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(mentee, mentor),
+//   });
+// }
+
+function putMenteeChoice(menteeId, mentorId) {
+  return fetchRequest(`/mentee/:${menteeId}/:${mentorId}'`);
 }
 
 function loginMentor(mentor) {
