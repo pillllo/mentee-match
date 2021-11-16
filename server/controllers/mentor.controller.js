@@ -1,30 +1,51 @@
-// const mentors = require('../models/mockMentors');
-const db = require('../models/index');
+const bcrypt = require('bcrypt');
+const { Mentor } = require('../models/index');
 
-async function getAll(req, res) {
+const login = async (req, res) => {
   try {
-    const mentors = await db.Mentor.findAll();
-    res.status(200).send(mentors);
-  } catch {
-    res.status(500).send('Could not get the list of mentors.');
-  }
-}
-
-async function login(req, res) {
-  try {
-    const { email } = req.body;
-    const mentor = mentors.find((mentor) => mentor.email === email);
-    if (!mentor) throw new Error();
-    res.status(200).send(mentor);
-  } catch {
+    const { email, password } = req.body;
+    // const user = await User.findOne({ email: email });
+    const user = await Mentor.findOne({ where: { email: email } });
+    const validatedPass = await bcrypt.compare(password, user.password);
+    if (!validatedPass) throw new Error();
+    req.session.uid = user.id;
+    res.status(200).send(user);
+  } catch (error) {
     res.status(401).send('Username or password is incorrect');
   }
-}
+};
 
-// async function logout(req, res) {
+const profile = async (req, res) => {
+  try {
+    // TODO: set right data coming in from FE request
+    // const { _id, firstName, lastName } = req.user;
+    // const user = { _id, firstName, lastName };
+    const { id, fullName, firstName } = req.user;
+    const user = { id, firstName, lastName };
+    res.status(200).send(user);
+  } catch {
+    res.status(404).send('User not found');
+  }
+};
+
+const logout = (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      res.status(500).send('Could not log out, please try again');
+    } else {
+      res.clearCookie('sid');
+      res.sendStatus(200);
+    }
+  });
+};
+
+module.exports = { login, profile, logout };
+
+// async function getAll(req, res) {
 //   try {
-
-//   } catch {}
+//     const mentors = await Mentor.findAll();
+//     res.status(200).send(mentors);
+//   } catch {
+//     res.status(500).send('Could not get the list of mentors.');
+//   }
 // }
-
-module.exports = { getAll, login };
