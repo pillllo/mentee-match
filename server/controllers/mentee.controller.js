@@ -1,4 +1,4 @@
-const mentees = require('../models/mockMentees');
+// const mentees = require('../models/mockMentees');
 const db = require('../models/index');
 const { Mentee, Mentor } = require('../models/index');
 

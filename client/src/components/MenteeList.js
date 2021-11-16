@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { XIcon } from '@heroicons/react/outline';
 import DropDown from './Functional/DropDown';
 
-function MenteeList({ mentees, filteredMentees, filterMentees }) {
+function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
   const [myMenteesFilterOn, setMyMenteesFilterOn] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
 
   function myMenteesFilterHandler() {
-    filterMentees('chosenByMe', true);
+    filterMentees('MentorId', myId);
     setFilterOn(true);
   }
 

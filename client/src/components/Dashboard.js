@@ -31,31 +31,31 @@ function Dashboard({ setIsAuthenticated }) {
     // Update the list of mentees that remain for choosing
     const menteesNotChosen = allMentees.filter((mentee) => !mentee.MentorId);
     setRemainingMentees(menteesNotChosen);
+    // Update the list of filtered mentees
   }, [allMentees]);
 
   // Update boolean values in mentee object (e.g. chosen, bookmarked), add values to be changes as additional args in the function
   function updateMentee(menteeId, mentorId) {
     ApiService.putMenteeChoice(menteeId, mentorId).then((updatedMentee) => {
+      console.log('🎯 Updated mentee from BE', updatedMentee);
       setAllMentees((menteeList) => {
         const menteeToUpdate = menteeList.find(
           (mentee) => mentee.id === menteeId
         );
-        menteeToUpdate.MentorId = updatedMentee.MentorId;
+        menteeToUpdate.MentorId = '' + updatedMentee.MentorId;
+        console.log('🎯 As recorded in allMentees', menteeToUpdate);
         return [...menteeList];
       });
     });
   }
 
   function filterMentees(criteria, value) {
+    console.log('All mentees from filterMentees', allMentees);
     const filteredMenteeList = allMentees.filter((mentee) => {
       return mentee[criteria] === value;
     });
     setFilteredMentees(filteredMenteeList);
   }
-
-  console.log('🎯 Count mentees', countMenteesChosenByMe);
-  console.log('🎯 All mentees', allMentees.length);
-  console.log('🎯 Remaining mentees', remainingMentees.length);
 
   return (
     <div>
@@ -72,6 +72,7 @@ function Dashboard({ setIsAuthenticated }) {
           element={
             <MenteeList
               mentees={allMentees}
+              myId={myId}
               filteredMentees={filteredMentees}
               filterMentees={filterMentees}
               setIsAuthenticated={setIsAuthenticated}

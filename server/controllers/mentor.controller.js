@@ -1,4 +1,4 @@
-const mentors = require('../models/mockMentors');
+// const mentors = require('../models/mockMentors');
 const db = require('../models/index');
 
 async function getAll(req, res) {
