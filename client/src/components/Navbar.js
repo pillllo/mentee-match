@@ -3,7 +3,6 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
 const navigationTabs = [
   { name: 'Review applications', href: '/dashboard', current: true },
-  { name: 'Tbd...', href: '/', current: true },
 ];
 
 // Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars

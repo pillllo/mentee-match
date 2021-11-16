@@ -54,7 +54,6 @@ function MenteeDetailView({
 
   // Prepare data for allowing mentor to select mentee as their choice
   const myMentee = mentee.MentorId === myId ? true : false;
-  // console.log('🎯 my mentee', mentee);
   const menteeAvailable = !mentee.MentorId ? true : false;
 
   function toggleModal() {

@@ -4,12 +4,19 @@ import { XIcon } from '@heroicons/react/outline';
 import DropDown from './Functional/DropDown';
 
 function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
-  const [myMenteesFilterOn, setMyMenteesFilterOn] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
+  const [filterBy, setFilterBy] = useState('Filter by...');
 
   function myMenteesFilterHandler() {
     filterMentees('MentorId', myId);
     setFilterOn(true);
+    setFilterBy('My mentees');
+  }
+
+  function careerPathFilterHandler(careerPath) {
+    filterMentees('careerPath', careerPath);
+    setFilterOn(true);
+    setFilterBy(`${careerPath}s`);
   }
 
   function bookmarkedMenteesFilterHandler() {
@@ -17,37 +24,24 @@ function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
     setFilterOn(true);
   }
 
-  function careerPathFilterHandler(careerPath) {
-    filterMentees('careerPath', careerPath);
-    setFilterOn(true);
-  }
-
   return (
     <div className="md:m-6">
       {/* Head section with filtering options */}
       <div className="flex justify-end mb-6">
-        {/* <button
-          onClick={myMenteesFilterHandler}
-          // className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mr-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-          className={`inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mr-3 text-sm font-medium ${
-            myMenteesFilterOn
-              ? 'text-white bg-indigo-600 hover:bg-indigo-700'
-              : 'text-gray-700 bg-white hover:bg-gray-50'
-          }`}
-        >
-          My mentees
-        </button> */}
-
         <DropDown
           careerPathFilterHandler={careerPathFilterHandler}
           myMenteesFilterHandler={myMenteesFilterHandler}
+          filterBy={filterBy}
           bookmarkedMenteesFilterHandler={bookmarkedMenteesFilterHandler}
         />
         {/* Button to clear filter - display only if filter is active */}
         {filterOn ? (
           <div className="ml-3 inline-flex rounded-md shadow">
             <button
-              onClick={() => setFilterOn(false)}
+              onClick={() => {
+                setFilterOn(false);
+                setFilterBy('Filter by...');
+              }}
               className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm p-2 bg-white text-base font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
             >
               <XIcon className="h-5 w-auto" aria-hidden="true" />
@@ -102,9 +96,9 @@ function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
                         <div className="text-sm font-medium text-gray-900">
                           {mentee.name}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        {/* <div className="text-sm text-gray-500">
                           {mentee.careerPath}
-                        </div>
+                        </div> */}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
