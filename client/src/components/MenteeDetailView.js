@@ -15,7 +15,7 @@ import ModalError from './Modals/ModalError';
 // Content type to be passed to the Modal depending on what modal it is
 const noMoreChoice = {
   title: 'No choice left',
-  text: `You have already chosen 4 mentees.`,
+  text: `You have already chosen 2 mentees.`,
   buttonText: 'Close',
   icon: 'ExclamationIcon',
 };
@@ -129,7 +129,7 @@ function MenteeDetailView({
               {/* Button close detail view */}
               <div className="ml-3 inline-flex rounded-md shadow">
                 <Link
-                  to={`/dashboard`}
+                  to={`/`}
                   className="inline-flex items-center justify-center p-2 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
                 >
                   <XIcon className="h-4 w-auto" aria-hidden="true" />
@@ -206,7 +206,7 @@ function MenteeDetailView({
             </dl>
           </div>
         </div>
-        {showModal && countMenteesChosenByMe < 10 && menteeAvailable ? (
+        {showModal && countMenteesChosenByMe < 2 && menteeAvailable ? (
           <ModalConfirm
             mentee={mentee}
             updateMentee={updateMentee}
@@ -215,7 +215,7 @@ function MenteeDetailView({
         ) : (
           <></>
         )}
-        {showModal && countMenteesChosenByMe >= 10 ? (
+        {showModal && countMenteesChosenByMe >= 2 ? (
           <ModalError
             mentee={mentee}
             updateMentee={updateMentee}

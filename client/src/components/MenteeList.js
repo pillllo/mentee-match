@@ -26,7 +26,7 @@ function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
 
   return (
     <div className="md:m-6">
-      {/* Head section with filtering options */}
+      {/* Head section with welcome message & filtering options */}
       <div className="flex justify-end mb-6">
         <DropDown
           careerPathFilterHandler={careerPathFilterHandler}
@@ -89,7 +89,6 @@ function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {/* TODO: choose which fields to show & how, then adjust table headers */}
                   {(filterOn ? filteredMentees : mentees).map((mentee) => (
                     <tr key={mentee.id}>
                       <td className="px-6 py-4 whitespace-nowrap">

@@ -3,8 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import ApiService from '../ApiService';
 import MenteeList from './MenteeList';
 import MenteeDetailView from './MenteeDetailView';
-import Login from './Login';
-import LoginCW from './LoginCW';
 
 function Dashboard({ isAuthenticated, setIsAuthenticated }) {
   const [allMentees, setAllMentees] = useState([]);
@@ -12,6 +10,7 @@ function Dashboard({ isAuthenticated, setIsAuthenticated }) {
   const [filteredMentees, setFilteredMentees] = useState([]);
   const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
 
+  //Mentor profile currently not dependent on logged in mentor
   const myId = '10';
 
   // Import all available mentees on page load
@@ -58,22 +57,24 @@ function Dashboard({ isAuthenticated, setIsAuthenticated }) {
 
   return (
     <div>
+      <div className="bg-gray-50 md:m-6">
+        <div className="px-4 py-5">
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <span className="block">Welcome, Natalie! 👋</span>
+            <span className="block text-indigo-600">
+              Choose your two mentees today.
+            </span>
+          </h2>
+        </div>
+      </div>
+      <MenteeList
+        mentees={allMentees}
+        myId={myId}
+        filteredMentees={filteredMentees}
+        filterMentees={filterMentees}
+        setIsAuthenticated={setIsAuthenticated}
+      />
       <Routes>
-        {/* <Route
-          path="/login"
-          render={(props) => (
-            <LoginCW {...props} setIsAuthenticated={setIsAuthenticated} />
-          )}
-        /> */}
-        {/* <Route
-          path="/login"
-          element={
-            <Login
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          }
-        /> */}
         <Route
           path="/"
           element={

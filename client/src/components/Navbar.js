@@ -1,3 +1,5 @@
+// Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars
+
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
@@ -5,7 +7,6 @@ const navigationTabs = [
   { name: 'Review applications', href: '/', current: true },
 ];
 
-// Component from Tailwind UI https://tailwindui.com/components/application-ui/navigationTabs/navbars
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }

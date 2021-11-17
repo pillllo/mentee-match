@@ -30,7 +30,6 @@ function Login({ isAuthenticated, setIsAuthenticated }) {
       alert(`Username or password incorrect`);
       setState(initialState);
     } else {
-      // navigate('/dashboard', { replace: true });
       // This sets isAuthenticated = true and Navigates to profile
       setIsAuthenticated(true);
 
