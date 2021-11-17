@@ -27,10 +27,30 @@ function loginMentor(mentor) {
   });
 }
 
+function profileMentor() {
+  return fetchRequest(`${BASE_URL}/me`, {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+function logoutMentor() {
+  return fetchRequest(`${BASE_URL}/logout`, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
 const ApiService = {
   getMentees,
   putMenteeChoice,
   loginMentor,
+  profileMentor,
+  logoutMentor,
 };
 
 export default ApiService;

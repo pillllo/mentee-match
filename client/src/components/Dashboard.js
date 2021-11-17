@@ -4,8 +4,9 @@ import ApiService from '../ApiService';
 import MenteeList from './MenteeList';
 import MenteeDetailView from './MenteeDetailView';
 import Login from './Login';
+import LoginCW from './LoginCW';
 
-function Dashboard({ setIsAuthenticated }) {
+function Dashboard({ isAuthenticated, setIsAuthenticated }) {
   const [allMentees, setAllMentees] = useState([]);
   const [remainingMentees, setRemainingMentees] = useState([]);
   const [filteredMentees, setFilteredMentees] = useState([]);
@@ -37,13 +38,11 @@ function Dashboard({ setIsAuthenticated }) {
   // Update boolean values in mentee object (e.g. chosen, bookmarked), add values to be changes as additional args in the function
   function updateMentee(menteeId, mentorId) {
     ApiService.putMenteeChoice(menteeId, mentorId).then((updatedMentee) => {
-      console.log('🎯 Updated mentee from BE', updatedMentee);
       setAllMentees((menteeList) => {
         const menteeToUpdate = menteeList.find(
           (mentee) => mentee.id === menteeId
         );
         menteeToUpdate.MentorId = '' + updatedMentee.MentorId;
-        console.log('🎯 As recorded in allMentees', menteeToUpdate);
         return [...menteeList];
       });
     });
@@ -60,15 +59,23 @@ function Dashboard({ setIsAuthenticated }) {
   return (
     <div>
       <Routes>
-        <Route
+        {/* <Route
           path="/login"
-          // render={(props) => (
-          //   <Login {...props} setIsAuthenticated={setIsAuthenticated} />
-          // )}
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
+          render={(props) => (
+            <LoginCW {...props} setIsAuthenticated={setIsAuthenticated} />
+          )}
+        /> */}
+        {/* <Route
+          path="/login"
+          element={
+            <Login
+              isAuthenticated={isAuthenticated}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          }
+        /> */}
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <MenteeList
               mentees={allMentees}
@@ -97,20 +104,3 @@ function Dashboard({ setIsAuthenticated }) {
 }
 
 export default Dashboard;
-
-// OLD VERSION update mentee with mock data
-// function updateMentee(id, mentee) {
-//   const keys = [...arguments].slice(2);
-//   keys.forEach((key) => {
-//     mentee[key] = !mentee[key];
-//   });
-//   // mentee.chosenByMe = !mentee.chosenByMe;
-//   ApiService.putMenteeChoice(id, mentee).then((updatedMentee) => {
-//     setAllMentees((menteeList) => {
-//       const menteeToUpdate = menteeList.find((mentee) => mentee._id === id);
-//       menteeToUpdate.chosen = updatedMentee.chosen;
-//       menteeToUpdate.chosenByMe = updatedMentee.chosenByMe;
-//       return [...menteeList];
-//     });
-//   });
-// }

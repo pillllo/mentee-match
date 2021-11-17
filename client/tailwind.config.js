@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('@tailwindcss/forms');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -20,5 +21,5 @@ module.exports = {
       textColor: ['visited'],
     },
   },
-  plugins: [],
+  plugins: [plugin],
 };

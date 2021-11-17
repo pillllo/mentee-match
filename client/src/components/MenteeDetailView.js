@@ -39,6 +39,7 @@ function MenteeDetailView({
   myId,
   updateMentee,
   countMenteesChosenByMe,
+  isAuthenticated,
 }) {
   const [showModal, setShowModal] = useState(false);
   const [bookmarkOn, setBookmarkOn] = useState(false);
@@ -59,7 +60,7 @@ function MenteeDetailView({
   function toggleModal() {
     setShowModal(!showModal);
   }
-
+  console.log('🎯 ', isAuthenticated);
   // function toggleBookmark(id, mentee) {
   //   updateMentee(mentee.id, mentee, 'bookmarked');
   //   setBookmarkOn(!bookmarkOn);
