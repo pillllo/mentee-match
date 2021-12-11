@@ -40,7 +40,7 @@ npm start
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Tailwind UI](https://tailwindui.com/)
-- [node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Sequelize](https://sequelize.org/master/index.html)
