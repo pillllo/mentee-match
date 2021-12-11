@@ -3,9 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import ApiService from '../ApiService';
 import MenteeList from './MenteeList';
 import MenteeDetailView from './MenteeDetailView';
+import Profile from './Profile';
 
 function Dashboard({ isAuthenticated, setIsAuthenticated }) {
   const [allMentees, setAllMentees] = useState([]);
+  //Currently displaying all mentees, even if they are not available anymore
   const [remainingMentees, setRemainingMentees] = useState([]);
   const [filteredMentees, setFilteredMentees] = useState([]);
   const [countMenteesChosenByMe, setCountMenteesChosenByMe] = useState(0);
@@ -57,23 +59,6 @@ function Dashboard({ isAuthenticated, setIsAuthenticated }) {
 
   return (
     <div>
-      <div className="bg-gray-50 md:m-6">
-        <div className="px-4 py-5">
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            <span className="block">Welcome, Natalie! 👋</span>
-            <span className="block text-indigo-600">
-              Choose your two mentees today.
-            </span>
-          </h2>
-        </div>
-      </div>
-      <MenteeList
-        mentees={allMentees}
-        myId={myId}
-        filteredMentees={filteredMentees}
-        filterMentees={filterMentees}
-        setIsAuthenticated={setIsAuthenticated}
-      />
       <Routes>
         <Route
           path="/"
@@ -99,6 +84,7 @@ function Dashboard({ isAuthenticated, setIsAuthenticated }) {
             />
           }
         />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

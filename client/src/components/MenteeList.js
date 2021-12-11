@@ -27,6 +27,17 @@ function MenteeList({ mentees, myId, filteredMentees, filterMentees }) {
   return (
     <div className="md:m-6">
       {/* Head section with welcome message & filtering options */}
+      {/* Display welcome message */}
+      <div className="bg-gray-50 md:m-6">
+        <div className="px-4 py-5">
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <span className="block">Welcome, Natalie! 👋</span>
+            <span className="block text-indigo-600">
+              Choose your two mentees today.
+            </span>
+          </h2>
+        </div>
+      </div>
       <div className="flex justify-end mb-6">
         <DropDown
           careerPathFilterHandler={careerPathFilterHandler}

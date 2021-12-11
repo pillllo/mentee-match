@@ -1,12 +1,12 @@
 // const db = require('../models/index');
-const { Mentee, Mentor } = require('../models/index');
+const { Mentee, Mentor } = require("../models/index");
 
 async function getAll(req, res) {
   try {
     const mentees = await Mentee.findAll();
     res.status(200).send(mentees);
   } catch {
-    res.status(500).send('Could not get the list of mentees.');
+    res.status(500).send("Could not get the list of mentees.");
   }
 }
 
@@ -18,7 +18,7 @@ async function updateChoice(req, res) {
     const updatedMentee = await mentee.setMentor(mentor);
     res.status(201).send(updatedMentee);
   } catch {
-    res.status(500).send('Could not update mentee choice.');
+    res.status(500).send("Could not update mentee choice.");
   }
 }
 

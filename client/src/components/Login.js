@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
 import auth from '../utils/auth';
 import ApiService from '../ApiService';
 import { LockClosedIcon } from '@heroicons/react/solid';
@@ -35,11 +34,8 @@ function Login({ isAuthenticated, setIsAuthenticated }) {
 
       // auth.login(() => props.history.push('/profile'));
       // auth.login(() => props.history.push('/dashboard'));
-      console.log('🎯 Api return', res);
     }
-    <Navigate to="/dashboard" replace={true} />;
   };
-  console.log('🎯 ', isAuthenticated);
 
   const validateForm = () => {
     return !state.email || !state.password;

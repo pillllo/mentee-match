@@ -41,12 +41,3 @@ const logout = (req, res) => {
 };
 
 module.exports = { login, profile, logout };
-
-// async function getAll(req, res) {
-//   try {
-//     const mentors = await Mentor.findAll();
-//     res.status(200).send(mentors);
-//   } catch {
-//     res.status(500).send('Could not get the list of mentors.');
-//   }
-// }
