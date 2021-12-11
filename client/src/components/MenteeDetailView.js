@@ -7,7 +7,6 @@ import {
   ArrowRightIcon,
   XIcon,
   CheckIcon,
-  BookmarkIcon,
 } from '@heroicons/react/outline';
 import ModalConfirm from './Modals/ModalConfirm';
 import ModalError from './Modals/ModalError';
@@ -42,7 +41,6 @@ function MenteeDetailView({
   isAuthenticated,
 }) {
   const [showModal, setShowModal] = useState(false);
-  const [bookmarkOn, setBookmarkOn] = useState(false);
 
   // Find mentee for which the detail view should be shown, based on the id in the URL params
   const params = useParams();
@@ -60,14 +58,8 @@ function MenteeDetailView({
   function toggleModal() {
     setShowModal(!showModal);
   }
-  console.log('🎯 ', isAuthenticated);
-  // function toggleBookmark(id, mentee) {
-  //   updateMentee(mentee.id, mentee, 'bookmarked');
-  //   setBookmarkOn(!bookmarkOn);
-  // }
 
   return (
-    // TODO: style the detail view card according to data (e.g. 2 columns at the top)
     // Only render detail view if the mentees array has been loaded from the server, else show loading spinner
     mentees.length ? (
       <div className="mx-24 my-10">
@@ -96,20 +88,6 @@ function MenteeDetailView({
                   <ArrowRightIcon className="h-4 w-auto" aria-hidden="true" />
                 </Link>
               </div>
-              {/* Button bookmark */}
-              {/* <div className="ml-3 inline-flex rounded-md shadow">
-                <button
-                  className={`inline-flex items-center justify-center px-4 py-2 border
-                  border-transparent text-base font-medium rounded-md text-white
-                  bg-indigo-600 hover:bg-indigo-700 ${
-                    !mentee.bookmarked ? 'opacity-50' : ''
-                  }`}
-                  aria-label="bookmark mentee"
-                  onClick={() => toggleBookmark(mentee.id, mentee)}
-                >
-                  <BookmarkIcon className="h-4 w-auto" aria-hidden="true" />
-                </button>
-              </div> */}
               {/* Button choose */}
               <div className="ml-3 inline-flex rounded-md shadow">
                 {/* If mentee was choosen already, show button in different color and disallow selecting the button */}
@@ -247,7 +225,6 @@ function MenteeDetailView({
         )}
       </div>
     ) : (
-      // TODO: style loading
       <p>Loading</p>
     )
   );

@@ -4,10 +4,7 @@ const { Mentor } = require('../models/index');
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // const user = await User.findOne({ email: email });
     const user = await Mentor.findOne({ where: { email: email } });
-    // const validatedPass = await bcrypt.compare(password, user.password);
-    // if (!validatedPass) throw new Error();
     if (!user) throw new Error();
     req.session.uid = user.id;
     res.status(200).send(user);
@@ -18,9 +15,6 @@ const login = async (req, res) => {
 
 const profile = async (req, res) => {
   try {
-    // TODO: set right data coming in from FE request
-    // const { _id, firstName, lastName } = req.user;
-    // const user = { _id, firstName, lastName };
     const { id, fullName, firstName } = req.user;
     const user = { id, firstName, lastName };
     res.status(200).send(user);

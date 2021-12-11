@@ -1,19 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-// TODO: install express session
 const session = require('express-session');
 
 const router = require('./router');
 const db = require('./models/index');
+require('dotenv').config();
 
-// const SERVER_PORT = process.env.SERVER_PORT || 3001;
-const PORT = 3001;
-const SECRET = process.env.SECRET || 'this is not very secure';
+const PORT = process.env.SERVER_PORT || 3001;
+const SECRET = process.env.SECRET;
 
 const app = express();
 
 const corsConfig = {
-  origin: 'http://localhost:3000',
+  origin: process.env.ORIGIN,
   credentials: true,
 };
 

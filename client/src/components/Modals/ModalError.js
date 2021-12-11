@@ -62,7 +62,6 @@ function ModalError({ mentee, updateMentee, toggleModal, modalContent }) {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        {/* TODO: make text dynamic: based on mentee submitted */}
                         {modalContent.text}
                       </p>
                     </div>

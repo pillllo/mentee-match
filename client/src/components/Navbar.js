@@ -13,7 +13,6 @@ function classNames(...classes) {
 
 function Navbar({ isAuthenticated }) {
   return (
-    // TODO: make navabr fixed at top of page
     <>
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (

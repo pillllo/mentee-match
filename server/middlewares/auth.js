@@ -1,10 +1,8 @@
-// const User = require('./../models/user');
 const { Mentor } = require('../models/index');
 
 const authMiddleware = async (req, res, next) => {
   try {
     const { uid } = req.session;
-    // const user = await User.findOne({ _id: uid });
     const user = await Mentor.findOne({ where: { id: uid } });
     if (!user) throw new Error();
     req.user = user;

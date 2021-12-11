@@ -9,7 +9,6 @@ const Profile = () => {
   const [state, setState] = useState(initialState);
 
   const firstName = state.firstName || 'Missing';
-  // const lastName = state.lastName || 'No.';
 
   useEffect(() => {
     const getProfile = async () => {
@@ -20,7 +19,6 @@ const Profile = () => {
           return {
             ...prevState,
             firstName,
-            // lastName,
           };
         });
       } else {
